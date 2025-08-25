@@ -195,7 +195,7 @@ async function solveWithGemini() {
     `;
 
     // IMPORTANT: Replace this placeholder with the actual URL of your deployed Replit server.
-    const yourServerUrl = 'https://ZestyMistyCodersource.replit.dev/solve'; // <-- CHANGE THIS
+    const yourServerUrl = 'https://replit.com/@ErroneousBoy/ZestyMistyCoderesource'; // <-- CHANGE THIS
 
     try {
         const response = await fetch(yourServerUrl, {
