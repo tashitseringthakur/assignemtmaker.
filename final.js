@@ -195,7 +195,7 @@ async function solveWithGemini() {
     `;
 
     // IMPORTANT: Replace this placeholder with the actual URL of your deployed Replit server.
-    const yourServerUrl = 'https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev'; // <-- CHANGE THIS
+    const yourServerUrl = 'https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev/simple.html'; // <-- CHANGE THIS
 
     try {
         const response = await fetch(yourServerUrl, {
