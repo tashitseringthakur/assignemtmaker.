@@ -195,19 +195,7 @@ async function solveWithGemini() {
     `;
 
     // IMPORTANT: Replace this placeholder with the actual URL of your deployed Replit server.
-    const yourServerUrl = 'https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev/solve'; // <-- CHANGE THIS
-
-    // Update your GitHub Pages website to use this URL
-const response = await fetch('https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev/solve', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ prompt: userPrompt })
-});
-
-const data = await response.json();
-const aiResponse = data.candidates[0].content.parts[0].text;
+    const yourServerUrl = 'https://your-project-name.replit.dev/solve'; // <-- CHANGE THIS
 
     try {
         const response = await fetch(yourServerUrl, {
@@ -221,11 +209,11 @@ const aiResponse = data.candidates[0].content.parts[0].text;
         }
 
         const result = await response.json();
-
+        
         if (result.candidates && result.candidates.length > 0 &&
             result.candidates[0].content && result.candidates[0].content.parts &&
             result.candidates[0].content.parts.length > 0) {
-
+            
             const solutionText = result.candidates[0].content.parts[0].text;
             currentQuill.setContents([{ insert: solutionText }]);
         } else {
@@ -260,7 +248,7 @@ function convertToHTML() {
 
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = mixedInputHTML;
-
+    
     let finalHTML = '';
 
     if (applyImperfections) {
@@ -268,7 +256,7 @@ function convertToHTML() {
     } else {
         finalHTML = tempDiv.innerHTML;
     }
-
+    
     // Find and replace diagram placeholders with styled divs
     const diagramRegex = /\[DIAGRAM HERE: (.*?)\]/g;
     finalHTML = finalHTML.replace(diagramRegex, (match, description) => {
@@ -313,7 +301,7 @@ function setCSSVariable(variable, value) {
     document.documentElement.style.setProperty(`--${variable}`, value);
 }
 
-document.addEventListener('input', function (event) {
+document.addEventListener('input', function(event) {
     const target = event.target;
     const valueDisplay = document.getElementById(target.id + '-value');
     if (valueDisplay) {
@@ -373,7 +361,7 @@ function changeBackgroundImage() {
     var input = document.getElementById('background-image-input');
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = function(e) {
             setCSSVariable('custom-background-image', `url('${e.target.result}')`);
             document.getElementById('remove-button').style.display = 'inline-block';
         };
@@ -428,8 +416,8 @@ async function generatePDFfromPages() {
     const originalPageIndex = currentPageIndex;
 
     for (let i = 1; i < pages.length; i++) {
-        showPage(i, true);
-        await new Promise(resolve => setTimeout(resolve, 100));
+        showPage(i, true); 
+        await new Promise(resolve => setTimeout(resolve, 100)); 
 
         const canvas = await html2canvas(document.getElementById('shadow-effect'), { scale: quality });
         const imgData = canvas.toDataURL('image/png');
@@ -443,7 +431,7 @@ async function generatePDFfromPages() {
     }
 
     pdf.save('handwritten_document.pdf');
-    showPage(originalPageIndex, true);
+    showPage(originalPageIndex, true); 
     loader.style.display = 'none';
 }
 
@@ -473,7 +461,7 @@ function toggleNav() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initQuill();
-    showPage(1, true);
+    showPage(1, true); 
 
     document.getElementById('solve-with-gemini-btn').addEventListener('click', solveWithGemini);
     document.getElementById('auto-generate-pages-btn').addEventListener('click', autoGeneratePages);
@@ -493,24 +481,24 @@ async function autoGeneratePages() {
     measureContainer.style.visibility = 'hidden';
     measureContainer.style.width = originalPage.clientWidth + 'px';
     measureContainer.style.height = originalPage.clientHeight + 'px';
-
+    
     const measureContent = document.createElement('div');
-    measureContent.className = 'ql-editor';
+    measureContent.className = 'ql-editor'; 
     measureContainer.appendChild(measureContent);
     document.body.appendChild(measureContainer);
 
     const fullContent = currentQuill.getContents();
-
+    
     pages.splice(1);
     quillContents.splice(1);
-
+    
     let currentPageContent = new Quill(document.createElement('div')).getContents();
-
+    
     for (const op of fullContent.ops) {
         const tempQuill = new Quill(document.createElement('div'));
         tempQuill.setContents(currentPageContent);
         tempQuill.updateContents({ ops: [op] });
-
+        
         measureContent.innerHTML = tempQuill.root.innerHTML;
 
         if (measureContent.scrollHeight > measureContainer.clientHeight) {
@@ -525,7 +513,7 @@ async function autoGeneratePages() {
 
     quillContents.push(currentPageContent);
     createNewPageInternal();
-    pages.pop();
+    pages.pop(); 
 
     document.body.removeChild(measureContainer);
 
