@@ -195,7 +195,19 @@ async function solveWithGemini() {
     `;
 
     // IMPORTANT: Replace this placeholder with the actual URL of your deployed Replit server.
-    const yourServerUrl = 'https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev/simple.html'; // <-- CHANGE THIS
+    const yourServerUrl = 'https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev/solve'; // <-- CHANGE THIS
+
+    // Update your GitHub Pages website to use this URL
+const response = await fetch('https://ce4b2248-2cdb-46c0-a7a6-ebd05290325c-00-q80wnm1kd63s.worf.replit.dev/solve', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ prompt: userPrompt })
+});
+
+const data = await response.json();
+const aiResponse = data.candidates[0].content.parts[0].text;
 
     try {
         const response = await fetch(yourServerUrl, {
